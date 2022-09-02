@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create an Order</title>
+
+</head>
+<body>
+    <a href="/">Home</a>
+
+    <h1>A a New Order of COOOKIES!!</h1>
+
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/order/create" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name">
+
+        <label for="cookie_id">Cookie Type:</label>
+        <select name="cookie_id">
+            <!-- Need to create an option list for the user to select. -->
+            <!-- Note that we are passing the id into the value -->
+            {% for cookie in cookies %}
+            <option value={{cookie.id}}>{{cookie.type}}</option>
+            {% endfor %}
+        </select>
+
+        <label for="box_count">Number of Boxes:</label>
+        <input type="number" name="box_count">
+        <input type="submit" value="Create Order">
+    </form>
+
+</body>
+</html>
